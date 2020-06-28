@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/miAbout"
+        android:title="About Us"
+        android:orderInCategory="10"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/miLogout"
+        android:title="Logout"
+        android:orderInCategory="10"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/miAddFeed"
+        android:title="Add Feed"
+        android:orderInCategory="10"
+        android:icon="@drawable/ic_baseline_add_circle"
+        app:showAsAction="always"/>
+
+</menu>
