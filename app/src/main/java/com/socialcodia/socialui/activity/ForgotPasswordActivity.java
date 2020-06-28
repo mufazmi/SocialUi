@@ -1,6 +1,5 @@
 package com.socialcodia.socialui.activity;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -76,7 +75,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private void doForgotPassword(final String email)
+    private void doForgotPassword(String email)
     {
         btnForgotPassword.setEnabled(false);
         Call<DefaultResponse> call = ApiClient.getInstance().getApi().forgotPassword(email);

@@ -4,16 +4,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://socialapi.socialcodia.ml/public/";
+    private static final String BASE_URL = "http://10.0.2.2/SocialApi/public/";
     private static ApiClient mInstance;
-    private static Retrofit retrofit;
+    private Retrofit retrofit;
 
     private ApiClient()
     {
         retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     public static synchronized ApiClient getInstance()

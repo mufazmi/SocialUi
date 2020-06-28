@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
-import com.socialcodia.socialui.activity.ForgotPasswordActivity;
-import com.socialcodia.socialui.activity.MainActivity;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.DefaultResponse;
 import com.socialcodia.socialui.model.LoginResponse;
@@ -210,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendToMain()
     {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -219,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendToForgotActivity()
     {
-        Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+        Intent intent = new Intent(getApplicationContext(),ForgotPasswordActivity.class);
         startActivity(intent);
     }
 

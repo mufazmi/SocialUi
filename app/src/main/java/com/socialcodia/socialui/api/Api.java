@@ -17,10 +17,10 @@ public interface Api {
     @FormUrlEncoded
     @POST("createUser")
     Call<DefaultResponse> createUser(
-            @Field("name") String name,
-            @Field("username") String username,
-            @Field("email") String email,
-            @Field("password") String password
+        @Field("name") String name,
+        @Field("username") String username,
+        @Field("email") String email,
+        @Field("password") String password
     );
 
     @FormUrlEncoded

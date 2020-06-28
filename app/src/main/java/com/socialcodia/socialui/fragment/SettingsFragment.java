@@ -7,60 +7,110 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
+import com.socialcodia.socialui.api.ApiClient;
+import com.socialcodia.socialui.model.DefaultResponse;
+import com.socialcodia.socialui.model.ModelUser;
+import com.socialcodia.socialui.storage.SharedPrefHandler;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class SettingsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private EditText inputPassword, inputNewPassword;
+    private Button btnUpdatePassword;
+    SharedPrefHandler sharedPrefHandler;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings,container,false);
+
+        //Init
+        inputNewPassword = view.findViewById(R.id.inputNewPassword);
+        inputPassword = view.findViewById(R.id.inputPassword);
+        btnUpdatePassword = view.findViewById(R.id.btnUpdatePassword);
+
+        //Init SharePrefHandler
+        sharedPrefHandler = SharedPrefHandler.getInstance(getContext());
+        ModelUser modelUser = sharedPrefHandler.getUser();
+        btnUpdatePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateData();
+            }
+        });
+
+        return  view;
+    }
+
+    private void validateData()
+    {
+        String password = inputPassword.getText().toString().trim();
+        String newPassword = inputNewPassword.getText().toString().trim();
+        if (password.isEmpty())
+        {
+            inputPassword.setError("Enter Password");
+            inputPassword.requestFocus();
+            return;
+        }
+        if (password.length()<7 || password.length()>30)
+        {
+            inputPassword.setError("Password should be greater than 7 character");
+            inputPassword.requestFocus();
+            return;
+        }
+        if (newPassword.isEmpty())
+        {
+            inputNewPassword.setError("Enter New Password");
+            inputNewPassword.requestFocus();
+            return;
+        }
+        if (newPassword.length()<7 || newPassword.length()>30)
+        {
+            inputNewPassword.setError("Password should be greater than 7 character");
+            inputNewPassword.requestFocus();
+            return;
+        }
+        else
+        {
+            doUpdatePassword(password,newPassword);
+        }
+    }
+
+    private void doUpdatePassword(String password, String newPassword)
+    {
+        btnUpdatePassword.setEnabled(false);
+        ModelUser modelUser
+                = sharedPrefHandler.getUser();
+        Call<DefaultResponse> call = ApiClient.getInstance().getApi().updatePassword(modelUser.getToken(),password,newPassword);
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                DefaultResponse defaultResponse = response.body();
+                if (defaultResponse!=null)
+                {
+                    btnUpdatePassword.setEnabled(true);
+                    Toast.makeText(getContext(), defaultResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    btnUpdatePassword.setEnabled(true);
+                    Toast.makeText(getContext(), "No Response From Server", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                btnUpdatePassword.setEnabled(true);
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

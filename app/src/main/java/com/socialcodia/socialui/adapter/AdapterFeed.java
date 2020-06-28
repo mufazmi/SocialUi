@@ -42,15 +42,15 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         ModelFeed feed = modelFeedList.get(position);
         holder.tvUserName.setText(feed.getUserName());
         holder.tvFeedTimestamp.setText(feed.getFeedTimestamp());
         holder.tvFeedContent.setText(feed.getFeedContent());
-        final String likeCounts = feed.getFeedLikes().toString();
+        String likeCounts = feed.getFeedLikes().toString();
         String commentCounts = feed.getFeedComments().toString();
-        final String feedId = feed.getFeedId().toString();
+        String feedId = feed.getFeedId().toString();
         Boolean liked = feed.getLiked();
         holder.tvFeedLike.setText(likeCounts+" Likes");
         holder.tvFeedComment.setText(commentCounts+" Comments");
@@ -101,7 +101,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.ViewHolder> {
     }
 
 
-    private void doLike(String feedId, String likeCounts, final ViewHolder holder)
+    private void doLike(String feedId, String likeCounts,ViewHolder holder)
     {
         int like = Integer.parseInt((likeCounts));
         holder.tvFeedLike.setText(like+1+" Likes");
@@ -127,7 +127,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.ViewHolder> {
         });
     }
 
-    private void doDislike(String feedId, String likeCounts, final ViewHolder holder)
+    private void doDislike(String feedId, String likeCounts,ViewHolder holder)
     {
         holder.tvUnlike.setVisibility(View.INVISIBLE);
         holder.tvLike.setVisibility(View.VISIBLE);

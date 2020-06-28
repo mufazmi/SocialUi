@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.miSetting:
                         actionBar.setTitle("Settings");
                         fragment = new SettingsFragment();
-                        break;
+                                break;
                     case R.id.miProfile:
                         actionBar.setTitle("Profile");
                         fragment = new ProfileFragment();

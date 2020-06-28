@@ -115,7 +115,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private void doResetPassword(final String email, int otp, String password)
+    private void doResetPassword(String email, int otp, String password)
     {
         btnResetPassword.setEnabled(false);
         Call<DefaultResponse> call = ApiClient.getInstance().getApi().resetPassword(email,otp,password);
@@ -123,7 +123,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                 btnResetPassword.setEnabled(true);
-                DefaultResponse defaultResponse = response.body();
+            DefaultResponse defaultResponse = response.body();
                 if (defaultResponse!=null)
                 {
                     if (!defaultResponse.isError())

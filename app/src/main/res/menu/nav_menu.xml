@@ -21,7 +21,7 @@
         />
     <item
         android:id="@+id/miProfile"
-        android:title="Profile"
+        android:title="Setting"
         android:icon="@drawable/ic_baseline_person"
         android:orderInCategory="10"
         />

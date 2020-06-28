@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void doRegister(String name, String username, final String email, final String password)
+    private void doRegister(String name, String username, String email, String password)
     {
         btnRegister.setEnabled(false);
         Call<DefaultResponse> call = ApiClient.getInstance().getApi().createUser(name,username,email,password);

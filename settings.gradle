@@ -1,2 +1,2 @@
+rootProject.name='Rest Api'
 include ':app'
-rootProject.name = "SocialUi"

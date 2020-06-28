@@ -5,12 +5,12 @@ import android.content.SharedPreferences;
 
 import com.socialcodia.socialui.model.ModelUser;
 
-public class SharedPrefHandler {
+public class SharedPrefHandler
+{
     private static final String SHARED_PREF_NAME = "SocialCodia";
     private static SharedPrefHandler mInstance;
-    private static SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private Context context;
-
 
     public SharedPrefHandler(Context context)
     {
@@ -50,7 +50,7 @@ public class SharedPrefHandler {
                 sharedPreferences.getString(Constants.USER_EMAIL,null),
                 sharedPreferences.getString(Constants.USER_IMAGE, null),
                 sharedPreferences.getString(Constants.USER_TOKEN,null)
-        );
+                );
     }
 
     public Boolean isLoggedIn()
@@ -71,4 +71,5 @@ public class SharedPrefHandler {
         editor.clear();
         editor.apply();
     }
+
 }
