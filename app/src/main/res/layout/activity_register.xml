@@ -4,6 +4,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#edffe6"
     tools:context=".activity.RegisterActivity">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/restapi"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:drawableTint="@color/colorBlue"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_txt"
+            android:ems="10"
+            android:drawableLeft="@drawable/ic_baseline_person"
+            android:drawablePadding="10dp"
+            android:hint="Enter Name"
+            android:inputType="textEmailAddress"
+            android:padding="13dp" />
+
+        <EditText
+            android:id="@+id/inputUsername"
+            android:layout_width="match_parent"
+            android:drawableTint="@color/colorBlue"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_txt"
+            android:ems="10"
+            android:drawableLeft="@drawable/ic_baseline_account_circle"
+            android:drawablePadding="10dp"
+            android:hint="Username"
+            android:inputType="text"
+            android:padding="13dp" />
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_txt"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_email"
+            android:drawableTint="@color/colorBlue"
+            android:ems="10"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
+            android:padding="13dp" />
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_txt"
+            android:drawableLeft="@drawable/ic_baseline_lock"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorBlue"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="13dp" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/btn_corner"
+            android:text="Register"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Already have an account? Login"
+        android:textColor="@color/colorBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
