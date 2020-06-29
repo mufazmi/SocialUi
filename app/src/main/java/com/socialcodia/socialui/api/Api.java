@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Api {
 
@@ -90,5 +91,10 @@ public interface Api {
             @Field("id") String feedId
     );
 
+    @GET("{username}/feeds")
+    Call<ResponseFeed> getUserFeeds(
+            @Path("username") String username,
+            @Header("token") String token
+    );
 
 }

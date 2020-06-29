@@ -12,19 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.socialcodia.socialui.activity.AddFeedActivity"></activity>
-        <activity android:name="com.socialcodia.socialui.activity.ProfileActivity" />
+        <activity android:name=".activity.EditProfileActivity"></activity>
+        <activity android:name=".activity.AddFeedActivity" />
+        <activity android:name=".activity.ProfileActivity" />
         <activity
-            android:name="com.socialcodia.socialui.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.socialcodia.socialui.activity.ResetPasswordActivity"
+            android:name=".activity.ResetPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.socialcodia.socialui.activity.ForgotPasswordActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.socialcodia.socialui.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,9 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.socialcodia.socialui.activity.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.socialcodia.socialui.activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>
