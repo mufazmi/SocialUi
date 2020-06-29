@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Api {
@@ -80,6 +81,13 @@ public interface Api {
     Call<DefaultResponse> doDislike(
             @Header("token") String token,
             @Field("feedId") int feedId
+    );
+
+    @FormUrlEncoded
+    @POST("deleteFeed")
+    Call<DefaultResponse> deleteFeed(
+            @Header("token") String token,
+            @Field("id") String feedId
     );
 
 
