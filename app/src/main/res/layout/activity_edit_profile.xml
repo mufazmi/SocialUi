@@ -6,4 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".activity.EditProfileActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="96dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/user"
+            app:civ_border_color="@color/colorRed"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_txt"
+            android:drawableLeft="@drawable/ic_baseline_person"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorBlue"
+            android:ems="10"
+            android:hint="Enter Name"
+            android:inputType="textEmailAddress"
+            android:padding="13dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/userProfileImage" />
+
+        <EditText
+            android:id="@+id/inputUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_txt"
+            android:drawableLeft="@drawable/ic_baseline_account_circle"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorBlue"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:padding="13dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/inputName" />
+
+        <EditText
+            android:id="@+id/inputBio"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_txt"
+            android:drawableLeft="@drawable/ic_baseline_description"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorBlue"
+            android:ems="10"
+            android:hint="Something About You."
+            android:inputType="textEmailAddress"
+            android:padding="13dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
+
+        <Button
+            android:id="@+id/btnUpdateProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/btn_corner"
+            android:text="Update"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

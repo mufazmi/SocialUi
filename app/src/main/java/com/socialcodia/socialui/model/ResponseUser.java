@@ -1,11 +1,16 @@
 package com.socialcodia.socialui.model;
 
-import java.util.List;
-
 public class ResponseUser {
-    Boolean error;
-    String message;
-    private List<ModelUser> users;
+
+    private Boolean error;
+    private String message;
+    private ModelUser user;
+
+    public ResponseUser(Boolean error, String message, ModelUser user) {
+        this.error = error;
+        this.message = message;
+        this.user = user;
+    }
 
     public Boolean getError() {
         return error;
@@ -23,11 +28,11 @@ public class ResponseUser {
         this.message = message;
     }
 
-    public List<ModelUser> getUsers() {
-        return users;
+    public ModelUser getUser() {
+        return user;
     }
 
-    public void setUsers(List<ModelUser> users) {
-        this.users = users;
+    public void setUser(ModelUser user) {
+        this.user = user;
     }
 }

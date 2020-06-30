@@ -15,7 +15,7 @@ import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.adapter.AdapterUser;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.ModelUser;
-import com.socialcodia.socialui.model.ResponseUser;
+import com.socialcodia.socialui.model.ResponseUsers;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 
 import java.util.ArrayList;
@@ -48,20 +48,20 @@ public class UsersFragment extends Fragment {
     private void getUsers()
     {
         String token = SharedPrefHandler.getInstance(getContext()).getUser().getToken();
-        Call<ResponseUser> call = ApiClient.getInstance().getApi().users(token);
-        call.enqueue(new Callback<ResponseUser>() {
+        Call<ResponseUsers> call = ApiClient.getInstance().getApi().users(token);
+        call.enqueue(new Callback<ResponseUsers>() {
             @Override
-            public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
-                ResponseUser responseUser = response.body();
-                if (responseUser !=null)
+            public void onResponse(Call<ResponseUsers> call, Response<ResponseUsers> response) {
+                ResponseUsers responseUsers = response.body();
+                if (responseUsers !=null)
                 {
-                    if (responseUser.getError())
+                    if (responseUsers.getError())
                     {
-                        Toast.makeText(getContext(), responseUser.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), responseUsers.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        modelUserList = responseUser.getUsers();
+                        modelUserList = responseUsers.getUsers();
                         AdapterUser adapterUser = new AdapterUser(modelUserList,getContext());
                         userRecyclerView.setAdapter(adapterUser);
                     }
@@ -73,7 +73,7 @@ public class UsersFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseUser> call, Throwable t) {
+            public void onFailure(Call<ResponseUsers> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

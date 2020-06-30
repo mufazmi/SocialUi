@@ -6,6 +6,10 @@ public class Constants {
     USER_USERNAME = "username",
     USER_ID = "id",
     USER_EMAIL = "email",
+    USER_BIO = "bio",
     USER_IMAGE = "image",
-    USER_TOKEN = "token";
+    USER_TOKEN = "token",
+    USER_FEEDS_COUNT = "feedsCount",
+    USER_FOLLOWERS_COUNT = "followersCount",
+    USER_FOLLOWING_COUNT = "followingsCount";
 }

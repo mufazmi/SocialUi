@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 sendToLogin();
             }
-        },1000);
+        },2500);
     }
 
     private void sendToLogin()

@@ -1,6 +1,7 @@
 package com.socialcodia.socialui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.socialcodia.socialui.R;
+import com.socialcodia.socialui.activity.FeedActivity;
+import com.socialcodia.socialui.activity.ProfileActivity;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.DefaultResponse;
 import com.socialcodia.socialui.model.ModelFeed;
@@ -48,6 +51,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         ModelFeed feed = modelFeedList.get(position);
+        String username = modelFeedList.get(position).getUserUsername();
         holder.tvUserName.setText(feed.getUserName());
         holder.tvFeedTimestamp.setText(feed.getFeedTimestamp());
         holder.tvFeedContent.setText(feed.getFeedContent());
@@ -97,6 +101,41 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.ViewHolder> {
                 showFeedActionOptions(holder.ivFeedOption,feedId,feedUserId);
             }
         });
+
+        holder.userProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToProfileActivity(username);
+            }
+        });
+
+        holder.tvUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToProfileActivity(username);
+            }
+        });
+
+        holder.tvFeedContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToFeedActivity(feedId);
+            }
+        });
+    }
+
+    private void sendToFeedActivity(String feedId)
+    {
+        Intent intent = new Intent(context, FeedActivity.class);
+        intent.putExtra("IntentFeedId",feedId);
+        context.startActivity(intent);
+    }
+
+    private void sendToProfileActivity(String username)
+    {
+        Intent intent = new Intent(context, ProfileActivity.class);
+        intent.putExtra("IntentUsername",username);
+        context.startActivity(intent);
     }
 
     private void showFeedActionOptions(ImageView ivFeedOption, String feedId, int userId)

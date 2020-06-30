@@ -1,18 +1,14 @@
 package com.socialcodia.socialui.model;
 
-import java.util.List;
-
 public class ResponseFeed {
-    String message;
-    Boolean error;
-    private List<ModelFeed> feeds;
+    private Boolean error;
+    private String message;
+    private ModelFeed feed;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
+    public ResponseFeed(Boolean error, String message, ModelFeed feed) {
+        this.error = error;
         this.message = message;
+        this.feed = feed;
     }
 
     public Boolean getError() {
@@ -23,11 +19,19 @@ public class ResponseFeed {
         this.error = error;
     }
 
-    public List<ModelFeed> getFeeds() {
-        return feeds;
+    public String getMessage() {
+        return message;
     }
 
-    public void setFeeds(List<ModelFeed> feeds) {
-        this.feeds = feeds;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ModelFeed getFeed() {
+        return feed;
+    }
+
+    public void setFeed(ModelFeed feed) {
+        this.feed = feed;
     }
 }

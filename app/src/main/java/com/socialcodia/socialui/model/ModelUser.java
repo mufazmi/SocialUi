@@ -3,15 +3,21 @@ package com.socialcodia.socialui.model;
 public class ModelUser {
 
     private Integer id;
-    private String name,username,email,image,token;
+    private Boolean following;
+    private String name,username,email,bio,image,token,feedsCount,followersCount,followingsCount;
 
-    public ModelUser(Integer id, String name, String username, String email, String image, String token) {
+    public ModelUser(Integer id, Boolean following, String name, String username, String email, String bio, String image, String token, String feedsCount, String followersCount, String followingsCount) {
         this.id = id;
+        this.following = following;
         this.name = name;
         this.username = username;
         this.email = email;
+        this.bio = bio;
         this.image = image;
         this.token = token;
+        this.feedsCount = feedsCount;
+        this.followersCount = followersCount;
+        this.followingsCount = followingsCount;
     }
 
     public Integer getId() {
@@ -20,6 +26,14 @@ public class ModelUser {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Boolean following) {
+        this.following = following;
     }
 
     public String getName() {
@@ -46,6 +60,14 @@ public class ModelUser {
         this.email = email;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
     public String getImage() {
         return image;
     }
@@ -60,5 +82,29 @@ public class ModelUser {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getFeedsCount() {
+        return feedsCount;
+    }
+
+    public void setFeedsCount(String feedsCount) {
+        this.feedsCount = feedsCount;
+    }
+
+    public String getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(String followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public String getFollowingsCount() {
+        return followingsCount;
+    }
+
+    public void setFollowingsCount(String followingsCount) {
+        this.followingsCount = followingsCount;
     }
 }

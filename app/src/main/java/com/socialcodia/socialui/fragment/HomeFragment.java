@@ -15,7 +15,7 @@ import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.adapter.AdapterFeed;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.ModelFeed;
-import com.socialcodia.socialui.model.ResponseFeed;
+import com.socialcodia.socialui.model.ResponseFeeds;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 
 import java.util.ArrayList;
@@ -46,18 +46,18 @@ public class HomeFragment extends Fragment {
 
     private void getFeeds()
     {
-        Call<ResponseFeed> call = ApiClient.getInstance().getApi().getFeeds(SharedPrefHandler.getInstance(getContext()).getUser().getToken());
-        call.enqueue(new Callback<ResponseFeed>() {
+        Call<ResponseFeeds> call = ApiClient.getInstance().getApi().getFeeds(SharedPrefHandler.getInstance(getContext()).getUser().getToken());
+        call.enqueue(new Callback<ResponseFeeds>() {
             @Override
-            public void onResponse(Call<ResponseFeed> call, Response<ResponseFeed> response) {
-                ResponseFeed responseFeed = response.body();
-                if (responseFeed!=null)
+            public void onResponse(Call<ResponseFeeds> call, Response<ResponseFeeds> response) {
+                ResponseFeeds responseFeeds = response.body();
+                if (responseFeeds !=null)
                 {
-                    if (!responseFeed.getError())
+                    if (!responseFeeds.getError())
                     {
-                        if (responseFeed.getFeeds()!=null)
+                        if (responseFeeds.getFeeds()!=null)
                         {
-                            modelFeedList = responseFeed.getFeeds();
+                            modelFeedList = responseFeeds.getFeeds();
                             AdapterFeed adapterFeed = new AdapterFeed(modelFeedList,getContext());
                             feedRecyclerView.setAdapter(adapterFeed);
                         }
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
                     else
                     {
 
-                        Toast.makeText(getContext(), "Error :"+responseFeed.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error :"+ responseFeeds.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseFeed> call, Throwable t) {
+            public void onFailure(Call<ResponseFeeds> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

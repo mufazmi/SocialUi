@@ -3,14 +3,15 @@ package com.socialcodia.socialui.api;
 import com.socialcodia.socialui.model.DefaultResponse;
 import com.socialcodia.socialui.model.LoginResponse;
 import com.socialcodia.socialui.model.ResponseFeed;
+import com.socialcodia.socialui.model.ResponseFeeds;
 import com.socialcodia.socialui.model.ResponseUser;
+import com.socialcodia.socialui.model.ResponseUsers;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -61,12 +62,12 @@ public interface Api {
     );
 
     @GET("users")
-    Call<ResponseUser> users(
+    Call<ResponseUsers> users(
             @Header("token") String token
     );
 
     @GET("feeds")
-    Call<ResponseFeed> getFeeds(
+    Call<ResponseFeeds> getFeeds(
             @Header("token") String token
     );
 
@@ -92,9 +93,38 @@ public interface Api {
     );
 
     @GET("{username}/feeds")
-    Call<ResponseFeed> getUserFeeds(
+    Call<ResponseFeeds> getUserFeeds(
             @Path("username") String username,
             @Header("token") String token
     );
 
+    @FormUrlEncoded
+    @POST("updateUser")
+    Call<DefaultResponse> updateUser(
+            @Header("token") String token,
+            @Field("name") String name,
+            @Field("username") String username,
+            @Field("bio") String bio,
+            @Field("image") String image
+    );
+
+    @FormUrlEncoded
+    @POST("postFeed")
+    Call<DefaultResponse> postFeed(
+            @Header("token") String token,
+            @Field("content") String content,
+            @Field("image") String image
+    );
+
+    @GET("getUser/{username}")
+    Call<ResponseUser> getUserByUsername(
+            @Header("token") String token,
+            @Path("username") String username
+    );
+
+    @GET("feed/{id}")
+    Call<ResponseFeed> getFeedById(
+            @Header("token") String token,
+            @Path("id") String id
+    );
 }

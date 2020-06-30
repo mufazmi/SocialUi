@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
+import com.socialcodia.socialui.api.ApiClient;
+import com.socialcodia.socialui.model.DefaultResponse;
 import com.socialcodia.socialui.model.ModelUser;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -38,6 +46,8 @@ public class AddFeedFragment extends Fragment {
     private TextView tvFeedContent,tvUserName,tvFeedTimestamp;
     private Button btnPostFeed;
     private CardView cardView;
+    private Bitmap bitmap;
+    String token;
     Uri filePath;
 
     @Override
@@ -58,6 +68,7 @@ public class AddFeedFragment extends Fragment {
         cardView = view.findViewById(R.id.cardView);
 
         ModelUser modelUser = SharedPrefHandler.getInstance(getContext()).getUser();
+        token = modelUser.getToken();
         tvUserName.setText(modelUser.getName());
         Picasso.get().load(modelUser.getImage()).into(userProfileImage);
 
@@ -130,7 +141,32 @@ public class AddFeedFragment extends Fragment {
 
     private void postFeed(String content)
     {
+        btnPostFeed.setEnabled(false);
+        String image = imageToString();
+        Call<DefaultResponse> call = ApiClient.getInstance().getApi().postFeed(token,content,image);
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+            if (response.isSuccessful())
+            {
+                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                inputContent.setText("");
+                inputFeedImage.setImageBitmap(null);
+                btnPostFeed.setEnabled(true);
+            }
+            else
+            {
+                Toast.makeText(getContext(), "Server Not Responding", Toast.LENGTH_SHORT).show();
+                btnPostFeed.setEnabled(true);
+            }
+            }
 
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                btnPostFeed.setEnabled(true);
+            }
+        });
     }
 
     private void chooseImage()
@@ -141,13 +177,6 @@ public class AddFeedFragment extends Fragment {
         startActivityForResult(intent,200);
     }
 
-    private String getTime(String timestamp)
-    {
-        Long ts = Long.valueOf(timestamp);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:a");
-        String time = sdf.format(new Date(ts));
-        return time;
-    }
 
     private String getTime(Long timestamp)
     {
@@ -164,7 +193,7 @@ public class AddFeedFragment extends Fragment {
             filePath = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),filePath);
                 selectFeedImage.setImageBitmap(bitmap);
                 ivFeedImage.setVisibility(View.VISIBLE);
                 cardView.setVisibility(View.VISIBLE);
@@ -176,5 +205,13 @@ public class AddFeedFragment extends Fragment {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private String imageToString()
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] imageByte = baos.toByteArray();
+        return Base64.encodeToString(imageByte,Base64.DEFAULT);
     }
 }
