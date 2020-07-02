@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +17,11 @@ import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.api.ApiClient;
-import com.socialcodia.socialui.model.DefaultResponse;
 import com.socialcodia.socialui.model.ModelUser;
+import com.socialcodia.socialui.model.response.ResponseUser;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -37,7 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button btnUpdateProfile;
     private ImageView userProfileImage;
     private ActionBar actionBar;
-    private Bitmap bitmap;
+//    private Bitmap bitmap;
     private Uri filePath;
     String token,image,email;
     int id;
@@ -56,6 +54,7 @@ public class EditProfileActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle("Edit Profile");
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         ModelUser user = SharedPrefHandler.getInstance(getApplicationContext()).getUser();
         inputName.setText(user.getName());
@@ -89,6 +88,12 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
     private void chooseImage()
     {
         Intent intent = new Intent();
@@ -104,7 +109,7 @@ public class EditProfileActivity extends AppCompatActivity {
         {
             filePath = data.getData();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
                 userProfileImage.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -114,13 +119,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    private String imageToString()
-    {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
-        byte[] imageByte = baos.toByteArray();
-        return Base64.encodeToString(imageByte,Base64.DEFAULT);
-    }
 
     private void validateData()
     {
@@ -160,32 +158,24 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void updateProfile(String name, String username, String bio)
     {
-        String images = imageToString();
-        if (images!=null)
-        {
-            images = imageToString();
-        }
-        else
-        {
-            images = null;
-        }
-        Call<DefaultResponse> call = ApiClient.getInstance().getApi().updateUser(token,name,username,bio,images);
-        call.enqueue(new Callback<DefaultResponse>() {
+        Call<ResponseUser> call = ApiClient.getInstance().getApi().updateUser(token,name,username,bio);
+        call.enqueue(new Callback<ResponseUser>() {
             @Override
-            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+            public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
                 if (response.isSuccessful())
                 {
-                    DefaultResponse defaultResponse = response.body();
-                    if (!defaultResponse.isError())
+                    ResponseUser responseUser = response.body();
+                    if (!responseUser.getError())
                     {
                         Toast.makeText(EditProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-//                        ModelUser modelUser = new ModelUser(id,name,username,email,bio,image,token);
-//                        SharedPrefHandler.getInstance(getApplicationContext()).saveUser(modelUser);
+                        ModelUser modelUser = responseUser.getUser();
+                        modelUser.setToken(token);
+                        SharedPrefHandler.getInstance(getApplicationContext()).saveUser(modelUser);
                         onBackPressed();
                     }
                     else
                     {
-                        Toast.makeText(EditProfileActivity.this, defaultResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, responseUser.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -195,7 +185,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+            public void onFailure(Call<ResponseUser> call, Throwable t) {
                 Toast.makeText(EditProfileActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

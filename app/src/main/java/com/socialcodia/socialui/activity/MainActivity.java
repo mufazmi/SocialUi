@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 return  true;
             }
         });
+        isLoggedIn();
     }
 
     private void setFragment(Fragment fragment) {
@@ -96,6 +97,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void isLoggedIn()
+    {
+        if (!SharedPrefHandler.getInstance(getApplicationContext()).isLoggedIn())
+        {
+            doLogout();
+        }
     }
 
     private void doLogout()

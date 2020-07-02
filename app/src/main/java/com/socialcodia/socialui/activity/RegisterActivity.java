@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.api.ApiClient;
-import com.socialcodia.socialui.model.DefaultResponse;
+import com.socialcodia.socialui.model.response.DefaultResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

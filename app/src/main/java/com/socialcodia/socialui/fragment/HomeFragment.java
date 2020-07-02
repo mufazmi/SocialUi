@@ -15,7 +15,7 @@ import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.adapter.AdapterFeed;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.ModelFeed;
-import com.socialcodia.socialui.model.ResponseFeeds;
+import com.socialcodia.socialui.model.response.ResponseFeeds;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 
 import java.util.ArrayList;

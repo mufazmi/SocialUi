@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,11 @@ import android.widget.Toast;
 
 import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.api.ApiClient;
-import com.socialcodia.socialui.model.DefaultResponse;
+import com.socialcodia.socialui.model.response.DefaultResponse;
 import com.socialcodia.socialui.model.ModelUser;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -142,7 +140,7 @@ public class AddFeedFragment extends Fragment {
     private void postFeed(String content)
     {
         btnPostFeed.setEnabled(false);
-        String image = imageToString();
+        String image = "";
         Call<DefaultResponse> call = ApiClient.getInstance().getApi().postFeed(token,content,image);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
@@ -207,11 +205,4 @@ public class AddFeedFragment extends Fragment {
         }
     }
 
-    private String imageToString()
-    {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
-        byte[] imageByte = baos.toByteArray();
-        return Base64.encodeToString(imageByte,Base64.DEFAULT);
-    }
 }

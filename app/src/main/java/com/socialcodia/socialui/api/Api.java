@@ -1,11 +1,11 @@
 package com.socialcodia.socialui.api;
 
-import com.socialcodia.socialui.model.DefaultResponse;
-import com.socialcodia.socialui.model.LoginResponse;
-import com.socialcodia.socialui.model.ResponseFeed;
-import com.socialcodia.socialui.model.ResponseFeeds;
-import com.socialcodia.socialui.model.ResponseUser;
-import com.socialcodia.socialui.model.ResponseUsers;
+import com.socialcodia.socialui.model.response.DefaultResponse;
+import com.socialcodia.socialui.model.response.LoginResponse;
+import com.socialcodia.socialui.model.response.ResponseFeed;
+import com.socialcodia.socialui.model.response.ResponseFeeds;
+import com.socialcodia.socialui.model.response.ResponseUser;
+import com.socialcodia.socialui.model.response.ResponseUsers;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -73,14 +73,14 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("likeFeed")
-    Call<DefaultResponse>  doLike(
+    Call<ResponseFeed>  doLike(
             @Header("token")  String token,
             @Field("feedId") int feedId
     );
 
     @FormUrlEncoded
     @POST("unlikeFeed")
-    Call<DefaultResponse> doDislike(
+    Call<ResponseFeed> doDislike(
             @Header("token") String token,
             @Field("feedId") int feedId
     );
@@ -100,12 +100,12 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("updateUser")
-    Call<DefaultResponse> updateUser(
+    Call<ResponseUser> updateUser(
             @Header("token") String token,
             @Field("name") String name,
             @Field("username") String username,
-            @Field("bio") String bio,
-            @Field("image") String image
+            @Field("bio") String bio
+//            @Field("image") String image
     );
 
     @FormUrlEncoded
@@ -116,15 +116,42 @@ public interface Api {
             @Field("image") String image
     );
 
-    @GET("getUser/{username}")
+    @GET("user/{username}")
     Call<ResponseUser> getUserByUsername(
             @Header("token") String token,
             @Path("username") String username
+    );
+
+    @GET("user")
+    Call<ResponseUser> getMyProfile(
+            @Header("token") String token
     );
 
     @GET("feed/{id}")
     Call<ResponseFeed> getFeedById(
             @Header("token") String token,
             @Path("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("follow")
+    Call<ResponseUser> doFollow(
+            @Header("token") String token,
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("unFollow")
+    Call<ResponseUser> doUnFollow(
+            @Header("token") String token,
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("postFeedComment")
+    Call<DefaultResponse> postFeedComment(
+            @Header("token") String token,
+            @Field("feedId") String feedId,
+            @Field("comment") String comment
     );
 }

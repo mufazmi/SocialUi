@@ -1,13 +1,21 @@
 package com.socialcodia.socialui.model;
 
+import android.app.Activity;
+import android.content.Context;
+
+import com.socialcodia.socialui.storage.SharedPrefHandler;
+
 public class ModelUser {
 
-    private Integer id;
+    private Integer id,feedsCount,followersCount,followingsCount;
     private Boolean following;
-    private String name,username,email,bio,image,token,feedsCount,followersCount,followingsCount;
+    private String name,username,email,bio,image,token;
 
-    public ModelUser(Integer id, Boolean following, String name, String username, String email, String bio, String image, String token, String feedsCount, String followersCount, String followingsCount) {
+    public ModelUser(Integer id, Integer feedsCount, Integer followersCount, Integer followingsCount, Boolean following, String name, String username, String email, String bio, String image, String token) {
         this.id = id;
+        this.feedsCount = feedsCount;
+        this.followersCount = followersCount;
+        this.followingsCount = followingsCount;
         this.following = following;
         this.name = name;
         this.username = username;
@@ -15,9 +23,6 @@ public class ModelUser {
         this.bio = bio;
         this.image = image;
         this.token = token;
-        this.feedsCount = feedsCount;
-        this.followersCount = followersCount;
-        this.followingsCount = followingsCount;
     }
 
     public Integer getId() {
@@ -26,6 +31,30 @@ public class ModelUser {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getFeedsCount() {
+        return feedsCount;
+    }
+
+    public void setFeedsCount(Integer feedsCount) {
+        this.feedsCount = feedsCount;
+    }
+
+    public Integer getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(Integer followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public Integer getFollowingsCount() {
+        return followingsCount;
+    }
+
+    public void setFollowingsCount(Integer followingsCount) {
+        this.followingsCount = followingsCount;
     }
 
     public Boolean getFollowing() {
@@ -82,29 +111,5 @@ public class ModelUser {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getFeedsCount() {
-        return feedsCount;
-    }
-
-    public void setFeedsCount(String feedsCount) {
-        this.feedsCount = feedsCount;
-    }
-
-    public String getFollowersCount() {
-        return followersCount;
-    }
-
-    public void setFollowersCount(String followersCount) {
-        this.followersCount = followersCount;
-    }
-
-    public String getFollowingsCount() {
-        return followingsCount;
-    }
-
-    public void setFollowingsCount(String followingsCount) {
-        this.followingsCount = followingsCount;
     }
 }

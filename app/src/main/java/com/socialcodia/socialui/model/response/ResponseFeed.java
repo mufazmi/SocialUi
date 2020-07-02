@@ -1,4 +1,6 @@
-package com.socialcodia.socialui.model;
+package com.socialcodia.socialui.model.response;
+
+import com.socialcodia.socialui.model.ModelFeed;
 
 public class ResponseFeed {
     private Boolean error;

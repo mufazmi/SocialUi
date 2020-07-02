@@ -21,7 +21,8 @@ import com.socialcodia.socialui.adapter.AdapterFeed;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.ModelFeed;
 import com.socialcodia.socialui.model.ModelUser;
-import com.socialcodia.socialui.model.ResponseFeeds;
+import com.socialcodia.socialui.model.response.ResponseFeeds;
+import com.socialcodia.socialui.model.response.ResponseUser;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 import com.squareup.picasso.Picasso;
 
@@ -82,6 +83,7 @@ public class ProfileFragment extends Fragment {
         }
 
         getPostByUsername();
+        getUser();
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,39 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void getUser()
+    {
+        Call<ResponseUser> call = ApiClient.getInstance().getApi().getMyProfile(token);
+        call.enqueue(new Callback<ResponseUser>() {
+            @Override
+            public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
+                if (response.isSuccessful())
+                {
+                    ResponseUser responseUser = response.body();
+                    if (!responseUser.getError())
+                    {
+                        ModelUser modelUser = responseUser.getUser();
+                        modelUser.setToken(token);
+                        SharedPrefHandler.getInstance(getContext()).saveUser(modelUser);
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), responseUser.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Server Not Responding", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseUser> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void sendToEditProfile()

@@ -15,7 +15,7 @@ import com.socialcodia.socialui.R;
 import com.socialcodia.socialui.adapter.AdapterUser;
 import com.socialcodia.socialui.api.ApiClient;
 import com.socialcodia.socialui.model.ModelUser;
-import com.socialcodia.socialui.model.ResponseUsers;
+import com.socialcodia.socialui.model.response.ResponseUsers;
 import com.socialcodia.socialui.storage.SharedPrefHandler;
 
 import java.util.ArrayList;

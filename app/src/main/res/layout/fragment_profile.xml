@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="Social Codia"
                 android:textColor="#000000"
                 android:textSize="25sp"
@@ -53,6 +54,10 @@
                 android:id="@+id/tvUserUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_marginTop="-6dp"
+                android:paddingBottom="0dp"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:layout_gravity="center_horizontal"
                 android:text=" @SocialCodia"
                 android:textColor="#000000" />
@@ -81,7 +86,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="24\n Posts"
+                    android:text="0\n Posts"
                     android:textColor="#000000"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -93,7 +98,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="632\n Followers"
+                    android:text="0\n Followers"
                     android:textColor="#000000"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -105,7 +110,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="68\n Followings"
+                    android:text="0\n Followings"
                     android:textColor="#000000"
                     android:textSize="17sp"
                     android:textStyle="bold" />

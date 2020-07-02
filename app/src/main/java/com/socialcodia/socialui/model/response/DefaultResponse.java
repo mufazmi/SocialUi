@@ -1,4 +1,4 @@
-package com.socialcodia.socialui.model;
+package com.socialcodia.socialui.model.response;
 
 public class DefaultResponse {
     private String message;
